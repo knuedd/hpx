@@ -184,7 +184,7 @@ namespace hpx::threads {
                 id.noref(), threads::thread_description(desc));
 #endif
 #ifdef HPX_HAVE_THREAD_BACKTRACE_ON_SUSPENSION
-            threads::detail::reset_backtrace bt(id);
+            threads::detail::reset_backtrace bt(id.noref());
 #endif
             [[maybe_unused]] on_exit_reset_held_lock_data held_locks;
 
