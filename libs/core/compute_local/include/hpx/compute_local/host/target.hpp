@@ -33,7 +33,7 @@ namespace hpx::compute::host {
             {
             }
 
-            explicit native_handle_type(hpx::threads::mask_type mask)
+            explicit native_handle_type(hpx::threads::mask_type const& mask)
               : mask_(mask)
             {
             }
@@ -58,7 +58,7 @@ namespace hpx::compute::host {
         target() = default;
 
         // Constructs target from a given mask of processing units
-        explicit target(hpx::threads::mask_type mask)
+        explicit target(hpx::threads::mask_type const& mask)
           : handle_(mask)
         {
         }
@@ -74,12 +74,12 @@ namespace hpx::compute::host {
 
         std::pair<std::size_t, std::size_t> num_pus() const;
 
-        constexpr void synchronize() const noexcept
+        static constexpr void synchronize() noexcept
         {
             // nothing to do here...
         }
 
-        hpx::future<void> get_future() const
+        static hpx::future<void> get_future()
         {
             return hpx::make_ready_future();
         }
@@ -98,7 +98,7 @@ namespace hpx::compute::host {
         friend class hpx::serialization::access;
 
         void serialize(serialization::input_archive& ar, unsigned int);
-        void serialize(serialization::output_archive& ar, unsigned int);
+        void serialize(serialization::output_archive& ar, unsigned int) const;
 
         native_handle_type handle_;
     };
